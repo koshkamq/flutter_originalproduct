@@ -52,6 +52,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   child: Icon(Icons.add),
                 ),
               ),
+              SizedBox(height: 30),
               Container(
                 width: 300,
                 child: TextField(
@@ -62,11 +63,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
                 child: Container(
                   width: 300,
                   child: TextField(
                     controller: userIdController,
+                    keyboardType: TextInputType.visiblePassword,
                     decoration: InputDecoration(
                       hintText: 'ユーザーID',
                     ),
@@ -75,21 +77,35 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               ),
               Container(
                 width: 300,
-                child: TextField(
-                  controller: selfIntroductionController,
+                child: TextFormField(
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if(!value!.contains('@')){
+                      return 'アットマーク「＠」がありません。';
+                    }
+                  },
                   decoration: InputDecoration(
-                    hintText: '自己紹介',
+                    hintText: 'メールアドレス',
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
                 child: Container(
                   width: 300,
-                  child: TextField(
-                    controller: emailController,
+                  child: TextFormField(
+                    controller: passController,
+                    obscureText: true,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if(value!.length < 6){
+                        return '6文字以上！';
+                      }
+                    },
                     decoration: InputDecoration(
-                      hintText: 'メールアドレス',
+                      hintText: 'パスワード',
                     ),
                   ),
                 ),
@@ -97,9 +113,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               Container(
                 width: 300,
                 child: TextField(
-                  controller: passController,
+                  controller: selfIntroductionController,
+                  maxLines: null,
+                  minLines: 3,
                   decoration: InputDecoration(
-                    hintText: 'パスワード',
+                    hintText: '自己紹介',
                   ),
                 ),
               ),
@@ -112,6 +130,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         && emailController.text.isNotEmpty
                         && passController.text.isNotEmpty
                         && image != null){
+
+                      showProgressDialog(context);
+                      await Future<dynamic>.delayed(Duration(seconds: 2));
 
                       var result = await Authentication.signUp(email: emailController.text, pass: passController.text);
 
@@ -127,9 +148,29 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         var _result = await UserFirestore.setUser(newAccount);
                         if(_result == true){
                           //元の画面に戻る
+                          Navigator.of(context, rootNavigator: true).pop();
                           Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('登録完了！ログインしてみてください！')));
                         }
+                      }else{
+                        Navigator.of(context, rootNavigator: true).pop();
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('アカウント作成失敗...')));
                       }
+                    }else {
+                      showDialog(
+                          context: context,
+                          builder: (_) {
+                            return AlertDialog(
+                              content: Text('入力していない箇所があります！'),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: Text("OK"),
+                                  onPressed: () => Navigator.pop(context),
+                                ),
+                              ],
+                            );
+                          }
+                      );
                     }
                   },
                   child: Text('アカウントを作成')
@@ -140,4 +181,19 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       ),
     );
   }
+}
+
+void showProgressDialog(context) {
+  showGeneralDialog(
+    context: context,
+    barrierDismissible: false,
+    transitionDuration: Duration.zero,
+    barrierColor: Colors.black.withOpacity(0.5),
+    pageBuilder: (BuildContext context, Animation animation,
+        Animation secondaryAnimation) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    },
+  );
 }

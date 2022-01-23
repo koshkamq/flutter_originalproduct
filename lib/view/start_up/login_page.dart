@@ -28,14 +28,22 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: [
                 SizedBox(height: 50),
-                Text('flutterラボSNS', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                Text('Firework09(SK2A 水越)', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                SizedBox(height: 50),
                 Padding(
                   //上と下にpadding
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  padding: const EdgeInsets.symmetric(vertical: 30.0),
                   child: Container(
                     width: 300,
-                    child: TextField(
+                    child: TextFormField(
                       controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if(!value!.contains('@')){
+                          return 'アットマーク「＠」がありません。';
+                        }
+                      },
                       decoration: InputDecoration(
                         hintText: 'メールアドレス',
                       ),
@@ -51,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 RichText(
                   text: TextSpan(
                     style: TextStyle(color: Colors.black),
@@ -70,16 +78,39 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 70),
                 ElevatedButton(
                     onPressed: () async {
-                      var result = await Authentication.emailSignIn(email: emailController.text, pass: passController.text);
-                      if(result is UserCredential){
-                        var _result = await UserFirestore.getUser(result.user!.uid);
-                        if(_result == true){
-                          //ログインページを破棄して遷移
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Screen()));
+                      if(emailController.text.isNotEmpty && passController.text.isNotEmpty){
+                        showProgressDialog(context);
+                        await Future<dynamic>.delayed(Duration(seconds: 2));
+                        var result = await Authentication.emailSignIn(email: emailController.text, pass: passController.text);
+                        if(result is UserCredential){
+                          var _result = await UserFirestore.getUser(result.user!.uid);
+                          if(_result == true){
+                            //ログインページを破棄して遷移
+                            Navigator.of(context, rootNavigator: true).pop();
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Screen()));
+                          }
+                        }else{
+                          Navigator.of(context, rootNavigator: true).pop();
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('ログイン失敗...')));
                         }
+                      }else{
+                        showDialog(
+                            context: context,
+                            builder: (_) {
+                              return AlertDialog(
+                                content: Text('入力していない箇所があります！'),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text("OK"),
+                                    onPressed: () => Navigator.pop(context),
+                                  ),
+                                ],
+                              );
+                            }
+                        );
                       }
                     },
-                    child: Text('emailでログイン')
+                    child: Text('ログイン')
                 ),
               ],
             ),
@@ -88,4 +119,19 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+void showProgressDialog(context) {
+  showGeneralDialog(
+    context: context,
+    barrierDismissible: false,
+    transitionDuration: Duration.zero,
+    barrierColor: Colors.black.withOpacity(0.5),
+    pageBuilder: (BuildContext context, Animation animation,
+        Animation secondaryAnimation) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    },
+  );
 }
