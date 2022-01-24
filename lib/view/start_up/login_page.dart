@@ -52,8 +52,15 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Container(
                   width: 300,
-                  child: TextField(
+                  child: TextFormField(
                     controller: passController,
+                    obscureText: true,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if(value!.length < 6){
+                        return '6文字以上！';
+                      }
+                    },
                     decoration: InputDecoration(
                       hintText: 'パスワード',
                     ),

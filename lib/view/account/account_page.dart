@@ -31,7 +31,7 @@ class _AccountPageState extends State<AccountPage> {
               children: [
                 Container(
                   padding: EdgeInsets.only(right: 15, left: 15, top: 20),
-                  height: 200,
+                  height: 180,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -44,7 +44,7 @@ class _AccountPageState extends State<AccountPage> {
                                 radius: 32,
                                 foregroundImage: NetworkImage(myAccount.imagePath),
                               ),
-                              SizedBox(width: 10,),
+                              SizedBox(width: 10),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -64,8 +64,8 @@ class _AccountPageState extends State<AccountPage> {
                             },
                             child: Text('編集'),
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
-                              onPrimary: Colors.black,
+                              primary: Colors.indigo,
+                              onPrimary: Colors.white,
                             ),
                           ),
                         ],
@@ -80,10 +80,10 @@ class _AccountPageState extends State<AccountPage> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     border: Border(bottom: BorderSide(
-                      color: Colors.blue, width: 3
+                      color: Colors.indigo, width: 3
                     ))
                   ),
-                  child: Text('投稿', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+                  //child: Text('投稿', style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold),),
                 ),
                 Expanded(child: StreamBuilder<QuerySnapshot>(
                   stream: UserFirestore.users.doc(myAccount.id)
@@ -104,14 +104,15 @@ class _AccountPageState extends State<AccountPage> {
                               itemBuilder: (context, index) {
                                 Post post = snapshot.data![index];
                                 return Container(
-                                  // decoration: BoxDecoration(
-                                  //   border: index == 0 ? Border(
-                                  //     top: BorderSide(color: Colors.grey, width: 0),
-                                  //     bottom: BorderSide(color: Colors.grey, width: 0),
-                                  //   ) : Border(bottom: BorderSide(color: Colors.grey, width: 0),)
-                                  // ),
+                                  decoration: BoxDecoration(
+                                    border: index == 0 ? Border(
+                                      top: BorderSide(color: Colors.grey, width: 0),
+                                      bottom: BorderSide(color: Colors.grey, width: 0),
+                                    ) : Border(bottom: BorderSide(color: Colors.grey, width: 0),)
+                                  ),
                                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                                   child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       CircleAvatar(
                                         radius: 20,

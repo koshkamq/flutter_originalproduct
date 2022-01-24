@@ -26,7 +26,7 @@ class _TimeLinePageState extends State<TimeLinePage> {
         //elevation: 1,
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: PostFirestore.posts.orderBy('created_time', descending: true).snapshots(),
+        stream: PostFirestore.posts.orderBy('created_time', descending: true).limit(20).snapshots(),
         //追加されるたびに動いてくれるようになる
         builder: (context, postsnapshot) {
           if(postsnapshot.hasData){
@@ -54,17 +54,18 @@ class _TimeLinePageState extends State<TimeLinePage> {
                       );
                       Account postAccount = userSnapshot.data![post.postAccountId]!;
                       return Container(
-                        // decoration: BoxDecoration(
-                        //   border: index == 0 ? Border(
-                        //     top: BorderSide(color: Colors.grey, width: 0),
-                        //     bottom: BorderSide(color: Colors.grey, width: 0),
-                        //   ) : Border(bottom: BorderSide(color: Colors.grey, width: 0),)
-                        // ),
+                        decoration: BoxDecoration(
+                          border: index == 0 ? Border(
+                            top: BorderSide(color: Colors.grey, width: 0),
+                            bottom: BorderSide(color: Colors.grey, width: 0),
+                          ) : Border(bottom: BorderSide(color: Colors.grey, width: 0),)
+                        ),
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CircleAvatar(
-                              radius: 20,
+                              radius: 30,
                               foregroundImage: NetworkImage(postAccount.imagePath),
                             ),
                             Expanded(
@@ -77,14 +78,14 @@ class _TimeLinePageState extends State<TimeLinePage> {
                                       children: [
                                         Row(
                                           children: [
-                                            Text(postAccount.name, style: TextStyle(fontWeight: FontWeight.bold),),
-                                            Text('@${postAccount.userId}', style: TextStyle(color: Colors.grey),),
+                                            Text(postAccount.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                            Text('@${postAccount.userId}', style: TextStyle(color: Colors.grey)),
                                           ],
                                         ),
-                                        Text(DateFormat('M/d/yy').format(post.createdTime!.toDate())),
+                                        Text(DateFormat('yyyy/M/d H:mm').format(post.createdTime!.toDate())),
                                       ],
                                     ),
-                                    Text(post.content),
+                                    Text(post.content, style: TextStyle(fontSize: 18),),
                                   ],
                                 ),
                               ),
