@@ -118,6 +118,7 @@ class _AccountPageState extends State<AccountPage> {
                                         radius: 20,
                                         foregroundImage: NetworkImage(myAccount.imagePath),
                                       ),
+                                      SizedBox(width: 8,),
                                       Expanded(
                                         child: Container(
                                           child: Column(
@@ -132,7 +133,7 @@ class _AccountPageState extends State<AccountPage> {
                                                       Text('@${myAccount.userId}', style: TextStyle(color: Colors.grey),),
                                                     ],
                                                   ),
-                                                  Text(DateFormat('M/d/yy').format(post.createdTime!.toDate())),
+                                                  Text(DateFormat('yyyy/M/d H:mm').format(post.createdTime!.toDate())),
                                                 ],
                                               ),
                                               Text(post.content),

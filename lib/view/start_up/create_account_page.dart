@@ -132,7 +132,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         && image != null){
 
                       showProgressDialog(context);
-                      await Future<dynamic>.delayed(Duration(seconds: 2));
+                      //await Future<dynamic>.delayed(Duration(seconds: 2));
 
                       var result = await Authentication.signUp(email: emailController.text, pass: passController.text);
 

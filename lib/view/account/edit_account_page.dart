@@ -118,7 +118,7 @@ class _EditAccountPageState extends State<EditAccountPage> {
                         && userIdController.text.isNotEmpty
                         && selfIntroductionController.text.isNotEmpty){
                       showProgressDialog(context);
-                      await Future<dynamic>.delayed(Duration(seconds: 1));
+                      //await Future<dynamic>.delayed(Duration(seconds: 1));
                       String imagePath = '';
                       if(image == null){
                         imagePath = myAccount.imagePath;

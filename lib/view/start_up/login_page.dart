@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () async {
                       if(emailController.text.isNotEmpty && passController.text.isNotEmpty){
                         showProgressDialog(context);
-                        await Future<dynamic>.delayed(Duration(seconds: 2));
+                        //await Future<dynamic>.delayed(Duration(seconds: 2));
                         var result = await Authentication.emailSignIn(email: emailController.text, pass: passController.text);
                         if(result is UserCredential){
                           var _result = await UserFirestore.getUser(result.user!.uid);

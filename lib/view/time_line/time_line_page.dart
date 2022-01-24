@@ -68,6 +68,7 @@ class _TimeLinePageState extends State<TimeLinePage> {
                               radius: 30,
                               foregroundImage: NetworkImage(postAccount.imagePath),
                             ),
+                            SizedBox(width: 8,),
                             Expanded(
                               child: Container(
                                 child: Column(
