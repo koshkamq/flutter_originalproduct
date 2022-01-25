@@ -13,7 +13,7 @@ class Authentication {
       return newAccount;
     } on FirebaseAuthException catch(e) {
       print('auth登録エラー: $e');
-      return false;
+      return '$e';
     }
   }
 

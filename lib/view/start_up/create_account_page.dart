@@ -132,7 +132,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         && image != null){
 
                       showProgressDialog(context);
-                      //await Future<dynamic>.delayed(Duration(seconds: 2));
+                      await Future<dynamic>.delayed(Duration(seconds: 1));
 
                       var result = await Authentication.signUp(email: emailController.text, pass: passController.text);
 
@@ -152,6 +152,9 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                           Navigator.pop(context);
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('登録完了！ログインしてみてください！')));
                         }
+                      }else if(result == '[firebase_auth/email-already-in-use] The email address is already in use by another account.'){
+                        Navigator.of(context, rootNavigator: true).pop();
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('すでに同じメールアドレスが登録されています！')));
                       }else{
                         Navigator.of(context, rootNavigator: true).pop();
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('アカウント作成失敗...')));
