@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_originalproduct/model/account.dart';
 import 'package:flutter_originalproduct/model/post.dart';
+import 'package:flutter_originalproduct/utils/authentication.dart';
 import 'package:flutter_originalproduct/utils/firestore/posts.dart';
 import 'package:flutter_originalproduct/utils/firestore/users.dart';
 import 'package:flutter_originalproduct/view/time_line/post_page.dart';
@@ -16,14 +17,32 @@ class TimeLinePage extends StatefulWidget {
 
 class _TimeLinePageState extends State<TimeLinePage> {
 
+  Account myAccount = Authentication.myAccount!;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        //centerTitle: true,
-        title: Text('タイムライン'),
-        //backgroundColor: Theme.of(context).canvasColor,
-        //elevation: 1,
+        centerTitle: true,
+        //title: Text('タイムライン'),
+        //title: Icon(Icons.flash_on_outlined,color: Colors.amber,),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 15,
+              foregroundImage: NetworkImage(myAccount.imagePath),
+            ),
+            Expanded(child: Icon(Icons.flash_on_outlined,color: Colors.amber,),),
+            SizedBox(width: 20,)
+            // Container(
+            //   child: Icon(Icons.flash_on_outlined,color: Colors.amber,),
+            // ),
+            // Icon(Icons.flash_on_outlined,color: Colors.amber,),
+          ],
+        ),
+        backgroundColor: Theme.of(context).canvasColor,
+        elevation: 2,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: PostFirestore.posts.orderBy('created_time', descending: true).limit(20).snapshots(),
