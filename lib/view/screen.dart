@@ -11,7 +11,6 @@ class Screen extends StatefulWidget {
 }
 
 class _ScreenState extends State<Screen> {
-
   int selectedIndex = 0;
   List<Widget> pageList = [TimeLinePage(), AccountPage()];
 
@@ -22,11 +21,11 @@ class _ScreenState extends State<Screen> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
+            icon: Icon(Icons.home_outlined),
             label: '',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.perm_identity_outlined),
+            icon: Icon(Icons.perm_identity_outlined),
             label: '',
           ),
         ],
@@ -38,8 +37,9 @@ class _ScreenState extends State<Screen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => PostPage()));
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => PostPage()));
         },
         child: Icon(Icons.add),
       ),

@@ -84,7 +84,7 @@ class _TimeLinePageState extends State<TimeLinePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CircleAvatar(
-                              radius: 30,
+                              radius: 20,
                               foregroundImage: NetworkImage(postAccount.imagePath),
                             ),
                             SizedBox(width: 8,),
@@ -98,14 +98,14 @@ class _TimeLinePageState extends State<TimeLinePage> {
                                       children: [
                                         Row(
                                           children: [
-                                            Text(postAccount.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                            Text(postAccount.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                                             Text('@${postAccount.userId}', style: TextStyle(color: Colors.grey)),
                                           ],
                                         ),
                                         Text(DateFormat('yyyy/M/d H:mm').format(post.createdTime!.toDate())),
                                       ],
                                     ),
-                                    Text(post.content, style: TextStyle(fontSize: 18),),
+                                    Text(post.content, style: TextStyle(fontSize: 15),),
                                   ],
                                 ),
                               ),

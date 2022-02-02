@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_originalproduct/view/screen.dart';
 import 'package:flutter_originalproduct/view/start_up/login_page.dart';
 import 'package:flutter_originalproduct/view/time_line/time_line_page.dart';
@@ -17,13 +18,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale("en"),
+        const Locale("ja"),
+      ],
       title: 'Flutter Demo',
       theme: ThemeData(
-
         primarySwatch: Colors.indigo,
       ),
       home: LoginPage(),
     );
   }
 }
-

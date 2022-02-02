@@ -29,6 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -40,6 +42,7 @@ dependencies:
   firebase_auth: ^3.3.5
   firebase_storage: ^10.2.5
   cloud_firestore: ^3.1.6
+  charts_flutter: ^0.12.0
 
 dev_dependencies:
   flutter_test:
