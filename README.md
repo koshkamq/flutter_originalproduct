@@ -4,9 +4,12 @@ Twitterを模したSNSアプリを作ってflutterを学習しました。
 
 # 使用技術
 
-Android Studio 4.1.3
-Flutter 2.8.1
-Firebase
+Android Studio 4.1.3  
+Flutter 2.8.1  
+Firebase  
+
+# 動作画面
+
 
 ## Getting Started
 
