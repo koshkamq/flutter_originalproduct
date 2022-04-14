@@ -14,7 +14,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
 
@@ -28,7 +27,10 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: [
                 SizedBox(height: 50),
-                Text('Firework09(SK2A 水越)', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                Text(
+                  'Firework09(SK2A 水越)',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
                 SizedBox(height: 50),
                 Padding(
                   //上と下にpadding
@@ -40,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                       keyboardType: TextInputType.emailAddress,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
-                        if(!value!.contains('@')){
+                        if (!value!.contains('@')) {
                           return 'アットマーク「＠」がありません。';
                         }
                       },
@@ -57,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                     obscureText: true,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
-                      if(value!.length < 6){
+                      if (value!.length < 6) {
                         return '6文字以上！';
                       }
                     },
@@ -72,35 +74,48 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(color: Colors.black),
                     children: [
                       TextSpan(text: 'アカウントを作成していない方は'),
-                      TextSpan(text: 'こちら',
-                        style: TextStyle(color: Colors.blue),
-                        //タップしたときの処理が書ける
-                        recognizer: TapGestureRecognizer()..onTap = () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CreateAccountPage()));
-                        }
-                      ),
+                      TextSpan(
+                          text: 'こちら',
+                          style: TextStyle(color: Colors.blue),
+                          //タップしたときの処理が書ける
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CreateAccountPage()));
+                            }),
                     ],
                   ),
                 ),
                 SizedBox(height: 70),
                 ElevatedButton(
                     onPressed: () async {
-                      if(emailController.text.isNotEmpty && passController.text.isNotEmpty){
+                      if (emailController.text.isNotEmpty &&
+                          passController.text.isNotEmpty) {
                         showProgressDialog(context);
                         //await Future<dynamic>.delayed(Duration(seconds: 2));
-                        var result = await Authentication.emailSignIn(email: emailController.text, pass: passController.text);
-                        if(result is UserCredential){
-                          var _result = await UserFirestore.getUser(result.user!.uid);
-                          if(_result == true){
+                        var result = await Authentication.emailSignIn(
+                            email: emailController.text,
+                            pass: passController.text);
+                        if (result is UserCredential) {
+                          var _result =
+                              await UserFirestore.getUser(result.user!.uid);
+                          if (_result == true) {
                             //ログインページを破棄して遷移
                             Navigator.of(context, rootNavigator: true).pop();
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Screen()));
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Screen()));
                           }
-                        }else{
+                        } else {
                           Navigator.of(context, rootNavigator: true).pop();
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('ログイン失敗...')));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('ログイン失敗...')));
                         }
-                      }else{
+                      } else {
                         showDialog(
                             context: context,
                             builder: (_) {
@@ -113,12 +128,38 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ],
                               );
-                            }
-                        );
+                            });
                       }
                     },
-                    child: Text('ログイン')
-                ),
+                    child: Text('ログイン')),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.amberAccent,
+                      onPrimary: Colors.white,
+                    ),
+                    onPressed: () async {
+                      showProgressDialog(context);
+                      //await Future<dynamic>.delayed(Duration(seconds: 2));
+                      var result = await Authentication.emailSignIn(
+                          email: 'test@test.jp', pass: 'testtest');
+                      if (result is UserCredential) {
+                        var _result =
+                            await UserFirestore.getUser(result.user!.uid);
+                        if (_result == true) {
+                          //ログインページを破棄して遷移
+                          Navigator.of(context, rootNavigator: true).pop();
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Screen()));
+                        }
+                      } else {
+                        Navigator.of(context, rootNavigator: true).pop();
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text('ログイン失敗...')));
+                      }
+                    },
+                    child: Text('ゲストログイン')),
               ],
             ),
           ),
