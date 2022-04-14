@@ -11,6 +11,7 @@ Firebase
 # 動作画面
 ログインとアカウント登録画面  
 <img src="https://user-images.githubusercontent.com/94834948/163307201-b42f95e8-fb1c-445b-bb19-7251462b1ad1.png" width="300">
+<img src="https://user-images.githubusercontent.com/94834948/163307201-b42f95e8-fb1c-445b-bb19-7251462b1ad1.png" width="300">
 ![Screenshot_1649905862](https://user-images.githubusercontent.com/94834948/163307201-b42f95e8-fb1c-445b-bb19-7251462b1ad1.png)
 ![Screenshot_1649905873](https://user-images.githubusercontent.com/94834948/163307203-255050c2-ea7b-4ab7-b453-857652e6647a.png)
 ![Screenshot_1649905887](https://user-images.githubusercontent.com/94834948/163307205-85b44f1b-ad37-4a82-9753-db1be4cc1623.png)
