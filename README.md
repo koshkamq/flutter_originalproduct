@@ -1,6 +1,12 @@
 # flutter_originalproduct
 
-A new Flutter application.
+Twitterを模したSNSアプリを作ってflutterを学習しました。
+
+# 使用技術
+
+Android Studio 4.1.3
+Flutter 2.8.1
+Firebase
 
 ## Getting Started
 
