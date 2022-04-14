@@ -9,6 +9,12 @@ Flutter 2.8.1
 Firebase  
 
 # 動作画面
+![Screenshot_1649905862](https://user-images.githubusercontent.com/94834948/163307201-b42f95e8-fb1c-445b-bb19-7251462b1ad1.png)
+![Screenshot_1649905873](https://user-images.githubusercontent.com/94834948/163307203-255050c2-ea7b-4ab7-b453-857652e6647a.png)
+![Screenshot_1649905887](https://user-images.githubusercontent.com/94834948/163307205-85b44f1b-ad37-4a82-9753-db1be4cc1623.png)
+![Screenshot_1649905895](https://user-images.githubusercontent.com/94834948/163307206-2a5930cb-27f8-4716-a56a-1e834d0b116e.png)
+![Screenshot_1649905908](https://user-images.githubusercontent.com/94834948/163307209-4c10242e-14bd-44e9-8ce3-ae37bc06ff91.png)
+![Screenshot_1649905924](https://user-images.githubusercontent.com/94834948/163307210-7ac411f5-f72c-4da7-8d02-7ea2d6b9eadd.png)
 
 
 ## Getting Started
